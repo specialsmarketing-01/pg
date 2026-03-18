@@ -43,7 +43,7 @@ export function Navbar() {
                 width={160}
                 height={40}
                 priority
-                className="h-10 w-auto opacity-95 transition-opacity group-hover:opacity-100 md:h-10 lg:h-[62px]"
+                className="h-8 w-auto opacity-95 transition-opacity group-hover:opacity-100 md:h-8 lg:h-8"
               />
             </Link>
 

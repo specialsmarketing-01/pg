@@ -20,7 +20,7 @@ export function Footer() {
                 alt="PermaGrowth"
                 width={160}
                 height={40}
-                className="h-[62px] w-auto max-w-[70vw] opacity-95 sm:max-w-none"
+                className="h-8 w-auto max-w-[70vw] opacity-95 sm:max-w-none"
               />
             </div>
             <p className="text-sm text-[#a1a1aa] max-w-sm">

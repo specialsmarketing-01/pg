@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { headers } from "next/headers";
 import { brandFaviconSrc } from "@/lib/branding";
+import { resolveLocale } from "@/i18n/get-dictionary";
 import "./globals.css";
-import { Navbar } from "@/components/site/Navbar";
-import { Footer } from "@/components/site/Footer";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -12,18 +12,6 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://permagrowth.example"),
-  title: {
-    default: "PermaGrowth — Performance Marketing Agency",
-    template: "%s — PermaGrowth",
-  },
-  description:
-    "Premium performance marketing for modern brands: SEO, Ads, and Design that generate real growth.",
-  openGraph: {
-    title: "PermaGrowth — Performance Marketing Agency",
-    description:
-      "SEO, Ads, and Design that generate real growth. Conversion-focused systems built to scale.",
-    type: "website",
-  },
   robots: {
     index: true,
     follow: true,
@@ -35,20 +23,19 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headersList = await headers();
+  const locale = resolveLocale(headersList.get("x-locale") ?? "de");
+
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang={locale} className={inter.variable}>
       <body className="min-h-dvh antialiased">
         <div className="pointer-events-none fixed inset-0 -z-10 gradient-accent opacity-70" />
-        <Navbar />
-        <main className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
-          {children}
-        </main>
-        <Footer />
+        {children}
       </body>
     </html>
   );

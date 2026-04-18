@@ -2,51 +2,36 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useDictionary } from "@/i18n/DictionaryProvider";
 
-const quotes = [
-  {
-    name: "Amina K.",
-    role: "Founder, DTC Brand",
-    text: "PermaGrowth rebuilt our funnel and ad stack. We finally have predictable CAC and a clear weekly optimization cadence.",
-    avatar:
-      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=256&q=80",
-  },
-  {
-    name: "Lukas M.",
-    role: "Head of Growth, SaaS",
-    text: "Clean strategy, fast execution, and real reporting. The team shipped landing pages and campaigns that converted immediately.",
-    avatar:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=256&q=80",
-  },
-  {
-    name: "Noor A.",
-    role: "Marketing Lead, B2B",
-    text: "We moved from scattered experiments to a disciplined growth system. ROI tracking is airtight and decisions are easier.",
-    avatar:
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=256&q=80",
-  },
+const AVATARS = [
+  "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=256&q=80",
+  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=256&q=80",
+  "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=256&q=80",
 ] as const;
 
 export function Testimonials() {
+  const { dict } = useDictionary();
+  const t = dict.testimonials;
+
   return (
     <section className="pt-16 sm:pt-20 section-alt">
       <div className="flex items-end justify-between gap-6">
         <div>
           <div className="text-xs font-semibold uppercase tracking-wider text-white/70">
-            Testimonials
+            {t.kicker}
           </div>
           <h2 className="mt-3 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-            Loved by teams that care about outcomes
+            {t.title}
           </h2>
           <p className="mt-3 max-w-2xl text-sm leading-6 text-muted sm:text-base">
-            A few words from clients after we tightened their acquisition and conversion
-            systems.
+            {t.subtitle}
           </p>
         </div>
       </div>
 
       <div className="mt-10 grid gap-4 lg:grid-cols-3">
-        {quotes.map((q, idx) => (
+        {t.quotes.map((q, idx) => (
           <motion.figure
             key={q.name}
             initial={{ opacity: 0, y: 10 }}
@@ -61,7 +46,7 @@ export function Testimonials() {
             </blockquote>
             <figcaption className="mt-6 flex items-center gap-3">
               <Image
-                src={q.avatar}
+                src={AVATARS[idx] ?? AVATARS[0]}
                 alt={q.name}
                 width={40}
                 height={40}
@@ -78,4 +63,3 @@ export function Testimonials() {
     </section>
   );
 }
-

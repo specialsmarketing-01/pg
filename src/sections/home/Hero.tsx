@@ -4,8 +4,18 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, Heart, MessageCircle, Sparkles, ThumbsUp } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { useDictionary } from "@/i18n/DictionaryProvider";
+import { localizePath } from "@/i18n/routing";
 
 export function Hero() {
+  const { locale, dict } = useDictionary();
+  const h = dict.hero;
+  const metrics = [
+    { k: h.metrics.roi, v: h.metricsValues.roi },
+    { k: h.metrics.time, v: h.metricsValues.time },
+    { k: h.metrics.delivery, v: h.metricsValues.delivery },
+  ];
+
   return (
     <section className="relative pt-12 sm:pt-16 lg:pt-20">
       <div className="relative overflow-hidden glass ring-glow shadow-premium bg-gradient-to-b from-black to-[#111111]">
@@ -21,7 +31,6 @@ export function Hero() {
           <div className="absolute -top-16 right-10 h-64 w-64 rounded-full bg-neutral-500/20 blur-3xl" />
           <div className="absolute -bottom-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-black/30 blur-3xl" />
 
-          {/* Floating abstract rings/blobs */}
           <motion.div
             className="absolute left-6 top-10 h-20 w-20 rounded-full border border-neutral-400/40"
             animate={{ y: [0, -10, 0], rotate: [0, 6, 0] }}
@@ -38,33 +47,32 @@ export function Hero() {
           <div className="lg:col-span-7">
             <div className="inline-flex items-center gap-2 rounded-full bg-black/70 px-3 py-1 text-xs font-semibold text-white/90 ring-1 ring-white/15">
               <Sparkles className="h-4 w-4 text-white drop-shadow-[0_0_10px_rgba(0,0,0,0.6)]" />
-              Premium, conversion-focused growth systems
+              {h.badge}
             </div>
 
             <h1 className="mt-6 text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
-              Scale Your Business with{" "}
-            <span className="text-gradient-brand">Performance Marketing</span>
+              {h.titleBefore}{" "}
+              <span className="text-gradient-brand">{h.titleHighlight}</span>
             </h1>
             <p className="mt-5 max-w-2xl text-pretty text-base leading-7 text-muted sm:text-lg">
-              SEO, Ads, and Design that generate real growth. We build compounding
-              acquisition systems with ruthless focus on ROI.
+              {h.subtitle}
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Button href="/contact" size="lg">
-                Book a Call <ArrowRight className="h-4 w-4" />
+              <Button href={localizePath("/contact", locale)} size="lg">
+                {h.bookCall} <ArrowRight className="h-4 w-4" />
               </Button>
-              <Button href="/services" size="lg" variant="secondary">
-                View Services
+              <Button
+                href={localizePath("/services", locale)}
+                size="lg"
+                variant="secondary"
+              >
+                {h.viewServices}
               </Button>
             </div>
 
             <div className="mt-10 grid grid-cols-2 gap-4 sm:max-w-xl sm:grid-cols-3">
-              {[
-                { k: "Avg. ROI", v: "3.4×" },
-                { k: "Time to value", v: "14 days" },
-                { k: "Delivery", v: "Global team" },
-              ].map((m) => (
+              {metrics.map((m) => (
                 <div
                   key={m.k}
                   className="rounded-2xl bg-black/70 px-4 py-3 ring-1 ring-white/10"
@@ -77,7 +85,6 @@ export function Hero() {
               ))}
             </div>
 
-            {/* Floating social icons */}
             <div className="pointer-events-none absolute left-6 top-24 hidden lg:block">
               <motion.div
                 className="grid h-10 w-10 place-items-center rounded-2xl bg-black/70 ring-1 ring-white/15 backdrop-blur"
@@ -103,7 +110,7 @@ export function Hero() {
               <div className="absolute inset-0 bg-glow-mix opacity-80" />
               <Image
                 src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=80"
-                alt="Modern marketing dashboard"
+                alt={h.dashboardAlt}
                 width={1200}
                 height={900}
                 priority
@@ -113,14 +120,14 @@ export function Hero() {
               <div className="relative grid gap-3 p-4">
                 <div className="flex items-center justify-between rounded-2xl bg-black/35 px-4 py-3 ring-1 ring-white/10">
                   <div className="text-xs font-semibold text-white/70">
-                    Weekly pipeline
+                    {h.weeklyPipeline}
                   </div>
                   <div className="text-sm font-semibold text-white">+22%</div>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="rounded-2xl bg-black/35 px-4 py-3 ring-1 ring-white/10">
                     <div className="text-xs font-semibold text-white/70">
-                      CAC
+                      {h.cac}
                     </div>
                     <div className="mt-1 text-sm font-semibold text-white">
                       ↓ 18%
@@ -128,7 +135,7 @@ export function Hero() {
                   </div>
                   <div className="rounded-2xl bg-black/35 px-4 py-3 ring-1 ring-white/10">
                     <div className="text-xs font-semibold text-white/70">
-                      Conversions
+                      {h.conversions}
                     </div>
                     <div className="mt-1 text-sm font-semibold text-white">
                       +31%
@@ -153,4 +160,3 @@ export function Hero() {
     </section>
   );
 }
-

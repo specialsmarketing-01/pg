@@ -3,8 +3,13 @@
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
+import { useDictionary } from "@/i18n/DictionaryProvider";
+import { localizePath } from "@/i18n/routing";
 
 export function FinalCta() {
+  const { locale, dict } = useDictionary();
+  const f = dict.finalCta;
+
   return (
     <section className="pt-16 sm:pt-20">
       <div className="relative overflow-hidden rounded-[28px] glass ring-glow p-8 sm:p-12">
@@ -13,20 +18,23 @@ export function FinalCta() {
         <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-8">
             <div className="text-xs font-semibold uppercase tracking-wider text-white/70">
-              Ready to Grow?
+              {f.kicker}
             </div>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-              Let’s build the next phase of your growth
+              {f.title}
             </h2>
             <p className="mt-3 max-w-2xl text-sm leading-6 text-muted sm:text-base">
-              Get a free consultation with a clear action plan—channels, quick wins, and a
-              roadmap to scale.
+              {f.subtitle}
             </p>
           </div>
           <div className="lg:col-span-4 lg:flex lg:justify-end">
             <motion.div whileHover={{ y: -1 }} whileTap={{ y: 0 }}>
-              <Button href="/contact" size="lg" className="w-full sm:w-auto">
-                Start Now <ArrowRight className="h-4 w-4" />
+              <Button
+                href={localizePath("/contact", locale)}
+                size="lg"
+                className="w-full sm:w-auto"
+              >
+                {f.button} <ArrowRight className="h-4 w-4" />
               </Button>
             </motion.div>
           </div>
@@ -35,4 +43,3 @@ export function FinalCta() {
     </section>
   );
 }
-

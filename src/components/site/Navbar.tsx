@@ -3,21 +3,19 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import Image from "next/image";
 import { brandLogoSrc } from "@/lib/branding";
 import { cn } from "@/lib/cn";
 import { Button } from "@/components/ui/Button";
+import { useDictionary } from "@/i18n/DictionaryProvider";
+import { localizePath, stripLocalePrefix, swapLocaleInPathname } from "@/i18n/routing";
+import type { Locale } from "@/i18n/config";
 
-const links = [
-  { href: "/", label: "Home" },
-  { href: "/services", label: "Services" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-] as const;
+const NAV_PATHS = ["/", "/services", "/about", "/contact"] as const;
 
 export function Navbar() {
   const pathname = usePathname();
+  const { locale, dict } = useDictionary();
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -26,6 +24,20 @@ export function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const labels: Record<(typeof NAV_PATHS)[number], string> = {
+    "/": dict.nav.home,
+    "/services": dict.nav.services,
+    "/about": dict.nav.about,
+    "/contact": dict.nav.contact,
+  };
+
+  const activePath = stripLocalePrefix(pathname);
+
+  const isActive = (path: (typeof NAV_PATHS)[number]) =>
+    path === "/"
+      ? activePath === "/"
+      : activePath === path || activePath.startsWith(`${path}/`);
 
   return (
     <div className="sticky top-0 z-50 w-full">
@@ -36,25 +48,28 @@ export function Navbar() {
             scrolled ? "bg-black" : "glass"
           )}
         >
-          <div className="flex items-center justify-between px-3 py-2 sm:px-5 sm:py-3">
-            <Link href="/" className="group flex items-center gap-2 shrink-0">
+          <div className="flex items-center justify-between gap-3 px-3 py-2 sm:px-5 sm:py-3">
+            <Link
+              href={localizePath("/", locale)}
+              className="group flex min-w-0 items-center gap-2 shrink-0"
+            >
               <Image
                 src={brandLogoSrc}
                 alt="PermaGrowth"
                 width={240}
                 height={60}
                 priority
-                className="h-12 w-auto opacity-95 transition-opacity group-hover:opacity-100 md:h-12 lg:h-12"
+                className="h-10 w-auto opacity-95 transition-opacity group-hover:opacity-100 sm:h-12 md:h-12 lg:h-12"
               />
             </Link>
 
-            <div className="hidden items-center gap-1 md:flex">
-              {links.map((l) => {
-                const active = pathname === l.href;
+            <div className="hidden flex-1 items-center justify-end gap-1 md:flex">
+              {NAV_PATHS.map((path) => {
+                const active = isActive(path);
                 return (
                   <Link
-                    key={l.href}
-                    href={l.href}
+                    key={path}
+                    href={localizePath(path, locale)}
                     className={cn(
                       "px-3 py-2 text-sm font-medium transition",
                       active
@@ -62,52 +77,93 @@ export function Navbar() {
                         : "text-white/70 hover:text-white"
                     )}
                   >
-                    {l.label}
+                    {labels[path]}
                   </Link>
                 );
               })}
             </div>
 
-            {/* Desktop CTA */}
-            <div className="hidden items-center gap-2 pl-2 sm:pl-0 md:flex">
-              <Button
-                href="/contact"
-                size="sm"
-                className="hidden sm:inline-flex shadow-none"
-              >
-                Get Free Consultation
-              </Button>
-              <Button
-                href="/contact"
-                size="sm"
-                variant="secondary"
-                className="sm:hidden"
-              >
-                Consult
-              </Button>
+            <div
+              className="flex shrink-0 items-center gap-2 sm:gap-3"
+              role="navigation"
+              aria-label={dict.languageSwitcher.aria}
+            >
+              <div className="flex items-center rounded-full border border-white/15 bg-black/50 p-0.5">
+                <Link
+                  href={swapLocaleInPathname(pathname, "de")}
+                  className={cn(
+                    "rounded-full px-2.5 py-1 text-xs font-semibold transition",
+                    locale === "de"
+                      ? "bg-white/15 text-white"
+                      : "text-white/55 hover:text-white"
+                  )}
+                  hrefLang="de"
+                  lang="de"
+                >
+                  {dict.languageSwitcher.de}
+                </Link>
+                <Link
+                  href={swapLocaleInPathname(pathname, "en")}
+                  className={cn(
+                    "rounded-full px-2.5 py-1 text-xs font-semibold transition",
+                    locale === "en"
+                      ? "bg-white/15 text-white"
+                      : "text-white/55 hover:text-white"
+                  )}
+                  hrefLang="en"
+                  lang="en"
+                >
+                  {dict.languageSwitcher.en}
+                </Link>
+              </div>
+
+              <div className="hidden items-center gap-2 pl-1 md:flex">
+                <Button
+                  href={localizePath("/contact", locale)}
+                  size="sm"
+                  className="hidden sm:inline-flex shadow-none"
+                >
+                  {dict.nav.cta}
+                </Button>
+                <Button
+                  href={localizePath("/contact", locale)}
+                  size="sm"
+                  variant="secondary"
+                  className="sm:hidden"
+                >
+                  {dict.nav.ctaShort}
+                </Button>
+              </div>
             </div>
           </div>
 
-          {/* Mobile nav */}
           <div className="border-t border-white/10 md:hidden">
-            <div className="flex items-center justify-between px-4 py-2">
-              {links.map((l) => {
-                const active = pathname === l.href;
+            <div className="flex flex-wrap items-center justify-between gap-1 px-3 py-2">
+              {NAV_PATHS.map((path) => {
+                const active = isActive(path);
                 return (
                   <Link
-                    key={l.href}
-                    href={l.href}
+                    key={path}
+                    href={localizePath(path, locale)}
                     className={cn(
-                      "px-3 py-2 text-xs font-semibold transition",
+                      "px-2 py-2 text-xs font-semibold transition",
                       active
                         ? "text-accent"
                         : "text-white/70 hover:text-white"
                     )}
                   >
-                    {l.label}
+                    {labels[path]}
                   </Link>
                 );
               })}
+              <Button
+                href={localizePath("/contact", locale)}
+                size="sm"
+                variant="secondary"
+                className="ml-auto h-9 px-3 text-xs"
+              >
+                {dict.nav.ctaShort}
+              </Button>
             </div>
           </div>
         </div>
@@ -115,4 +171,3 @@ export function Navbar() {
     </div>
   );
 }
-

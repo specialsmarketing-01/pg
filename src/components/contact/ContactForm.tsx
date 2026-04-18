@@ -1,23 +1,35 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/Button";
+import { useDictionary } from "@/i18n/DictionaryProvider";
 
-const schema = z.object({
-  name: z.string().min(2, "Please enter your name."),
-  email: z
-    .string()
-    .email("Please enter a valid email.")
-    .max(160, "Email is too long."),
-  message: z.string().min(10, "Tell us a bit more about your project."),
-});
-
-type FormValues = z.infer<typeof schema>;
+type FormValues = {
+  name: string;
+  email: string;
+  message: string;
+};
 
 export function ContactForm() {
+  const { dict } = useDictionary();
+  const f = dict.contactForm;
+
+  const schema = useMemo(
+    () =>
+      z.object({
+        name: z.string().min(2, f.errors.name),
+        email: z
+          .string()
+          .email(f.errors.email)
+          .max(160, f.errors.email),
+        message: z.string().min(10, f.errors.message),
+      }),
+    [f.errors.email, f.errors.message, f.errors.name]
+  );
+
   const {
     register,
     handleSubmit,
@@ -30,7 +42,6 @@ export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
 
   const onSubmit = async (values: FormValues) => {
-    // TODO: connect to your email provider (Nodemailer, EmailJS, etc.)
     console.log("Contact form submitted", values);
     setSubmitted(true);
     reset();
@@ -45,13 +56,13 @@ export function ContactForm() {
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
           <label className="text-xs font-semibold uppercase tracking-[0.18em] text-white/70">
-            Name
+            {f.name}
           </label>
           <input
             type="text"
             {...register("name")}
             className="h-10 w-full rounded-lg border border-[#1f1f1f] bg-black px-3 text-sm text-white outline-none ring-0 transition focus:border-accent"
-            placeholder="Your name"
+            placeholder={f.namePh}
           />
           {errors.name && (
             <p className="text-xs text-red-400">{errors.name.message}</p>
@@ -60,13 +71,13 @@ export function ContactForm() {
 
         <div className="space-y-2">
           <label className="text-xs font-semibold uppercase tracking-[0.18em] text-white/70">
-            Email
+            {f.email}
           </label>
           <input
             type="email"
             {...register("email")}
             className="h-10 w-full rounded-lg border border-[#1f1f1f] bg-black px-3 text-sm text-white outline-none ring-0 transition focus:border-accent"
-            placeholder="you@company.com"
+            placeholder={f.emailPh}
           />
           {errors.email && (
             <p className="text-xs text-red-400">{errors.email.message}</p>
@@ -76,13 +87,13 @@ export function ContactForm() {
 
       <div className="space-y-2">
         <label className="text-xs font-semibold uppercase tracking-[0.18em] text-white/70">
-          Project details
+          {f.message}
         </label>
         <textarea
           rows={5}
           {...register("message")}
           className="w-full rounded-lg border border-[#1f1f1f] bg-black px-3 py-2 text-sm text-white outline-none ring-0 transition focus:border-accent"
-          placeholder="Where are you today, and what would great look like?"
+          placeholder={f.messagePh}
         />
         {errors.message && (
           <p className="text-xs text-red-400">{errors.message.message}</p>
@@ -91,15 +102,12 @@ export function ContactForm() {
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <Button type="submit" size="md" disabled={isSubmitting}>
-          {isSubmitting ? "Sending..." : "Send message"}
+          {isSubmitting ? f.sending : f.submit}
         </Button>
         {submitted && (
-          <p className="text-xs text-[#22c55e]">
-            Message sent. We&apos;ll get back to you shortly.
-          </p>
+          <p className="text-xs text-[#22c55e]">{f.success}</p>
         )}
       </div>
     </form>
   );
 }
-

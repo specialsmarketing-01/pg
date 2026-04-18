@@ -5,14 +5,23 @@ import { HowItWorks } from "@/sections/home/HowItWorks";
 import { WhyChooseUs } from "@/sections/home/WhyChooseUs";
 import { Testimonials } from "@/sections/home/Testimonials";
 import { FinalCta } from "@/sections/home/FinalCta";
+import { getDictionary, resolveLocale } from "@/i18n/get-dictionary";
 
-export const metadata: Metadata = {
-  title: "Home",
-  description:
-    "Scale your business with performance marketing—SEO, Ads, and Design that generate real growth.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale: raw } = await params;
+  const locale = resolveLocale(raw);
+  const dict = getDictionary(locale);
+  return {
+    title: dict.meta.home.title,
+    description: dict.meta.home.description,
+  };
+}
 
-export default function Home() {
+export default function HomePage() {
   return (
     <div className="pb-6">
       <Hero />

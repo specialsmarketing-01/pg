@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { brandFaviconSrc } from "@/lib/branding";
 import "./globals.css";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
@@ -28,9 +29,9 @@ export const metadata: Metadata = {
     follow: true,
   },
   icons: {
-    icon: "/PermaGrowthfavicon.png",
-    shortcut: "/PermaGrowthfavicon.png",
-    apple: "/PermaGrowthfavicon.png",
+    icon: brandFaviconSrc,
+    shortcut: brandFaviconSrc,
+    apple: brandFaviconSrc,
   },
 };
 

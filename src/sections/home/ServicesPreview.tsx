@@ -104,7 +104,7 @@ export function ServicesPreview() {
 
             <div className="p-6 sm:p-7">
               <div className="flex items-start gap-4">
-                <it.icon className="mt-[3px] h-7 w-7 text-white transition-colors group-hover:text-[#ff6a00]" />
+                <it.icon className="mt-[3px] h-7 w-7 text-white transition-colors group-hover:text-accent" />
                 <div className="min-w-0">
                   <div className="text-base font-semibold text-white">
                     {it.title}

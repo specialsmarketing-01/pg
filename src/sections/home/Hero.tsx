@@ -43,7 +43,7 @@ export function Hero() {
 
             <h1 className="mt-6 text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
               Scale Your Business with{" "}
-            <span className="text-gradient-purple">Performance Marketing</span>
+            <span className="text-gradient-brand">Performance Marketing</span>
             </h1>
             <p className="mt-5 max-w-2xl text-pretty text-base leading-7 text-muted sm:text-lg">
               SEO, Ads, and Design that generate real growth. We build compounding

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { brandLogoSrc } from "@/lib/branding";
 
 const nav = [
   { href: "/", label: "Home" },
@@ -16,11 +17,11 @@ export function Footer() {
           <div className="space-y-3">
             <div className="inline-flex items-center justify-center sm:justify-start">
               <Image
-                src="/PermaGrowthlogo.png"
+                src={brandLogoSrc}
                 alt="PermaGrowth"
-                width={160}
-                height={40}
-                className="h-8 w-auto max-w-[70vw] opacity-95 sm:max-w-none"
+                width={240}
+                height={60}
+                className="h-12 w-auto max-w-[70vw] opacity-95 sm:max-w-none"
               />
             </div>
             <p className="text-sm text-[#a1a1aa] max-w-sm">
@@ -62,13 +63,13 @@ export function Footer() {
                 Social
               </div>
               <div className="space-y-2 text-sm text-[#a1a1aa]">
-                <a className="block hover:text-[#ff6a00] transition" href="#">
+                <a className="block transition hover:text-accent" href="#">
                   LinkedIn
                 </a>
-                <a className="block hover:text-[#ff6a00] transition" href="#">
+                <a className="block transition hover:text-accent" href="#">
                   X (Twitter)
                 </a>
-                <a className="block hover:text-[#ff6a00] transition" href="#">
+                <a className="block transition hover:text-accent" href="#">
                   Instagram
                 </a>
               </div>

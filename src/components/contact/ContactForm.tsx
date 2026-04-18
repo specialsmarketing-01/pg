@@ -50,7 +50,7 @@ export function ContactForm() {
           <input
             type="text"
             {...register("name")}
-            className="h-10 w-full rounded-lg border border-[#1f1f1f] bg-black px-3 text-sm text-white outline-none ring-0 transition focus:border-[#ff6a00]"
+            className="h-10 w-full rounded-lg border border-[#1f1f1f] bg-black px-3 text-sm text-white outline-none ring-0 transition focus:border-accent"
             placeholder="Your name"
           />
           {errors.name && (
@@ -65,7 +65,7 @@ export function ContactForm() {
           <input
             type="email"
             {...register("email")}
-            className="h-10 w-full rounded-lg border border-[#1f1f1f] bg-black px-3 text-sm text-white outline-none ring-0 transition focus:border-[#ff6a00]"
+            className="h-10 w-full rounded-lg border border-[#1f1f1f] bg-black px-3 text-sm text-white outline-none ring-0 transition focus:border-accent"
             placeholder="you@company.com"
           />
           {errors.email && (
@@ -81,7 +81,7 @@ export function ContactForm() {
         <textarea
           rows={5}
           {...register("message")}
-          className="w-full rounded-lg border border-[#1f1f1f] bg-black px-3 py-2 text-sm text-white outline-none ring-0 transition focus:border-[#ff6a00]"
+          className="w-full rounded-lg border border-[#1f1f1f] bg-black px-3 py-2 text-sm text-white outline-none ring-0 transition focus:border-accent"
           placeholder="Where are you today, and what would great look like?"
         />
         {errors.message && (

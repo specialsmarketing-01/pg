@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { brandLogoSrc } from "@/lib/branding";
 import { cn } from "@/lib/cn";
 import { Button } from "@/components/ui/Button";
 
@@ -38,12 +39,12 @@ export function Navbar() {
           <div className="flex items-center justify-between px-3 py-2 sm:px-5 sm:py-3">
             <Link href="/" className="group flex items-center gap-2 shrink-0">
               <Image
-                src="/PermaGrowthlogo.png"
+                src={brandLogoSrc}
                 alt="PermaGrowth"
-                width={160}
-                height={40}
+                width={240}
+                height={60}
                 priority
-                className="h-8 w-auto opacity-95 transition-opacity group-hover:opacity-100 md:h-8 lg:h-8"
+                className="h-12 w-auto opacity-95 transition-opacity group-hover:opacity-100 md:h-12 lg:h-12"
               />
             </Link>
 
@@ -57,7 +58,7 @@ export function Navbar() {
                     className={cn(
                       "px-3 py-2 text-sm font-medium transition",
                       active
-                        ? "text-[#ff6a00]"
+                        ? "text-accent"
                         : "text-white/70 hover:text-white"
                     )}
                   >
@@ -99,7 +100,7 @@ export function Navbar() {
                     className={cn(
                       "px-3 py-2 text-xs font-semibold transition",
                       active
-                        ? "text-[#ff6a00]"
+                        ? "text-accent"
                         : "text-white/70 hover:text-white"
                     )}
                   >

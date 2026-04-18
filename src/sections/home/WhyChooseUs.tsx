@@ -58,7 +58,7 @@ export function WhyChooseUs() {
                   className="rounded-3xl bg-black/80 p-5 ring-1 ring-white/20 transition"
                 >
                   <div className="flex items-start gap-4">
-                    <p.icon className="mt-[2px] h-7 w-7 text-white transition-colors group-hover:text-[#ff6a00]" />
+                    <p.icon className="mt-[2px] h-7 w-7 text-white transition-colors group-hover:text-accent" />
                     <div>
                       <div className="text-sm font-semibold text-white">
                         {p.title}

@@ -92,7 +92,7 @@ export default function ServicesPage() {
             <Link
               key={service.slug}
               href={`/services/${service.slug}`}
-              className="group flex h-full flex-col rounded-2xl border border-[#1f1f1f] bg-[#0f0f0f] p-6 transition hover:-translate-y-1 hover:border-[#ff6a00] hover:shadow-[0_0_40px_rgba(255,106,0,0.35)]"
+              className="group flex h-full flex-col rounded-2xl border border-[#1f1f1f] bg-[#0f0f0f] p-6 transition hover:-translate-y-1 hover:border-[color:var(--accent-mid)] hover:shadow-accent-soft"
             >
               <div className="text-xs font-semibold uppercase tracking-[0.16em] text-white/70">
                 {service.name}
@@ -101,12 +101,12 @@ export default function ServicesPage() {
               <ul className="mt-4 space-y-2 text-xs text-muted">
                 {service.bullets.map((b) => (
                   <li key={b} className="flex gap-2">
-                    <span className="mt-[6px] h-[3px] w-[10px] rounded-full bg-[#ff6a00]" />
+                    <span className="mt-[6px] h-[3px] w-[10px] rounded-full bg-gradient-brand" />
                     <span>{b}</span>
                   </li>
                 ))}
               </ul>
-              <span className="mt-5 inline-flex items-center text-xs font-semibold text-[#ff6a00]">
+              <span className="mt-5 inline-flex items-center text-xs font-semibold text-accent">
                 View details
                 <span className="ml-1 transition-transform group-hover:translate-x-0.5">
                   →

@@ -108,14 +108,18 @@ type DictionaryShape = {
   contactForm: {
     name: string;
     email: string;
+    phone: string;
     message: string;
     namePh: string;
     emailPh: string;
+    phonePh: string;
     messagePh: string;
     submit: string;
     sending: string;
     success: string;
-    errors: { name: string; email: string; message: string };
+    errorSend: string;
+    errorNetwork: string;
+    errors: { name: string; email: string; phone: string; message: string };
   };
   servicesPage: {
     kicker: string;
@@ -380,16 +384,23 @@ const de: DictionaryShape = {
   contactForm: {
     name: "Name",
     email: "E-Mail",
+    phone: "Telefon",
     message: "Projektdetails",
     namePh: "Ihr Name",
     emailPh: "sie@firma.de",
+    phonePh: "+43 …",
     messagePh: "Wo stehen Sie heute—und wie sieht „großartig“ aus?",
     submit: "Nachricht senden",
     sending: "Wird gesendet…",
     success: "Nachricht gesendet. Wir melden uns in Kürze.",
+    errorSend:
+      "Senden fehlgeschlagen. Bitte versuchen Sie es später erneut oder schreiben Sie uns direkt per E-Mail.",
+    errorNetwork:
+      "Netzwerkfehler. Bitte prüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
     errors: {
       name: "Bitte geben Sie Ihren Namen ein.",
       email: "Bitte geben Sie eine gültige E-Mail ein.",
+      phone: "Bitte geben Sie eine gültige Telefonnummer ein (min. 6 Zeichen).",
       message: "Erzählen Sie etwas mehr über Ihr Projekt.",
     },
   },
@@ -904,16 +915,23 @@ const en: DictionaryShape = {
   contactForm: {
     name: "Name",
     email: "Email",
+    phone: "Phone",
     message: "Project details",
     namePh: "Your name",
     emailPh: "you@company.com",
+    phonePh: "+43 …",
     messagePh: "Where are you today, and what would great look like?",
     submit: "Send message",
     sending: "Sending...",
     success: "Message sent. We'll get back to you shortly.",
+    errorSend:
+      "Could not send your message. Please try again later or email us directly.",
+    errorNetwork:
+      "Network error. Check your connection and try again.",
     errors: {
       name: "Please enter your name.",
       email: "Please enter a valid email.",
+      phone: "Please enter a valid phone number (at least 6 characters).",
       message: "Tell us a bit more about your project.",
     },
   },

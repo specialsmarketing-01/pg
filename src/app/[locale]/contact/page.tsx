@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { getDictionary, resolveLocale } from "@/i18n/get-dictionary";
+import { SITE_EMAIL } from "@/lib/site";
 
 export async function generateMetadata({
   params,
@@ -43,7 +44,13 @@ export default async function ContactPage({
 
             <div className="mt-6 space-y-2 text-sm text-muted">
               <p>
-                {contact.emailLabel}: hello@permagrowth.agency
+                {contact.emailLabel}:{" "}
+                <a
+                  className="text-white/90 underline-offset-2 hover:text-accent hover:underline"
+                  href={`mailto:${SITE_EMAIL}`}
+                >
+                  {SITE_EMAIL}
+                </a>
               </p>
               <p>
                 {contact.managementLabel}: {contact.managementValue}

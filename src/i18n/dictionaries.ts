@@ -40,6 +40,8 @@ type DictionaryShape = {
     rights: string;
     built: string;
     management: string;
+    impressum: string;
+    datenschutz: string;
   };
   hero: {
     badge: string;
@@ -217,6 +219,8 @@ const de: DictionaryShape = {
     rights: "Alle Rechte vorbehalten.",
     built: "Gebaut für Tempo, Klarheit und Konversionen.",
     management: "Österreich (Management)",
+    impressum: "Impressum",
+    datenschutz: "Datenschutz",
   },
   hero: {
     badge: "Premium, konversionsstarke Wachstumssysteme",
@@ -748,6 +752,8 @@ const en: DictionaryShape = {
     rights: "All rights reserved.",
     built: "Built for speed, clarity, and conversions.",
     management: "Austria (Management)",
+    impressum: "Legal notice (Imprint)",
+    datenschutz: "Privacy policy",
   },
   hero: {
     badge: "Premium, conversion-focused growth systems",

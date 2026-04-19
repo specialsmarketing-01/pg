@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { brandLogoSrc } from "@/lib/branding";
+import { SITE_EMAIL } from "@/lib/site";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/get-dictionary";
 import { localizePath } from "@/i18n/routing";
@@ -53,6 +54,18 @@ export function Footer({
                     {labels[path]}
                   </Link>
                 ))}
+                <Link
+                  href={localizePath("/impressum", locale)}
+                  className="text-sm text-white/70 hover:text-white transition"
+                >
+                  {dict.footer.impressum}
+                </Link>
+                <Link
+                  href={localizePath("/datenschutz", locale)}
+                  className="text-sm text-white/70 hover:text-white transition"
+                >
+                  {dict.footer.datenschutz}
+                </Link>
               </div>
             </div>
 
@@ -61,7 +74,12 @@ export function Footer({
                 {dict.footer.contact}
               </div>
               <div className="space-y-2 text-sm text-[#a1a1aa]">
-                <div>hello@permagrowth.agency</div>
+                <a
+                  className="block text-white/80 transition hover:text-accent"
+                  href={`mailto:${SITE_EMAIL}`}
+                >
+                  {SITE_EMAIL}
+                </a>
                 <div>{dict.footer.management}</div>
               </div>
             </div>

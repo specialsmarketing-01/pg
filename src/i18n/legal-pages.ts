@@ -31,9 +31,9 @@ export function getImpressumPage(locale: Locale): LegalPageData {
           heading: "Information pursuant to § 5 TMG / provider identification",
           paragraphs: [
             "PermaGrowth — Digital Marketing Agency",
-            "Management based in Austria; execution with distributed teams.",
+            "Owner: Hari Krishan Kumar",
             `Email: ${mail()}`,
-            "Please replace this section with your full legal entity name, registered address, and (if applicable) commercial register details, managing director(s), and VAT ID as advised by your counsel.",
+            "Further company information (legal form, full registered address, commercial register, VAT ID, and similar details) is currently under development and will be published here in due course.",
           ],
         },
         {
@@ -75,9 +75,9 @@ export function getImpressumPage(locale: Locale): LegalPageData {
         heading: "Angaben gemäß § 5 TMG / Anbieterkennung",
         paragraphs: [
           "PermaGrowth — Digital Marketing Agency",
-          "Management mit Sitz in Österreich; operative Umsetzung mit verteilten Teams.",
+          "Inhaber: Hari Krishan Kumar",
           `E-Mail: ${mail()}`,
-          "Bitte ergänzen Sie hier durch Ihre Rechtsberatung: vollständiger Firmenname, Rechtsform, ladungsfähige Anschrift, Handelsregister / UID-Nummer (falls zutreffend), vertretungsberechtigte Personen.",
+          "Weitere Unternehmensangaben (Rechtsform, vollständige ladungsfähige Anschrift, Handelsregistereintrag, UID-Nummer u. a.) befinden sich derzeit in Aufbau und werden nachgereicht.",
         ],
       },
       {
